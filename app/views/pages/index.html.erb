@@ -2,7 +2,7 @@
 
 <% @posts.each do |post| %>
 	<h1><%= link_to post.title , post_path(post.id)%></h1>
-	<p>
+	<p>	<%= image_tag post.user.avatar.url(:thumb) %>
 		Autor:<%= post.user.nickname %> |
 		Creeated at:<%= post.created_at %>
 		Update at:<%= post.updated_at %>
