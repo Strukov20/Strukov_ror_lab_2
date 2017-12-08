@@ -31,9 +31,10 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-#active admin
+# active admin
 gem 'activeadmin'
-#devise
+
+# devise
 gem 'devise'
 gem 'client_side_validations'
 
@@ -47,6 +48,9 @@ gem 'jquery-rails'
 
 # text format
 gem 'tinymce-rails'
+
+# google_drive for carrierwave
+# gem 'carrierwave-google_drive'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
