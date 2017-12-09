@@ -6,10 +6,8 @@ before_action :photo_set, only:[:show, :edit, :update, :destroy, :vote]
     @photos = Photo.all
     @like = {}
     @photos.each do |photo|
-      @vote = Vote.find_by_photo_id(photo.id)
-      if !@vote.nil?
-        @like[photo.id] = @vote.like
-      end
+      @votes = Vote.where(photo_id: photo.id).sum(:like)
+      @like[photo.id] = @votes
     end
   end
 
@@ -40,13 +38,13 @@ before_action :photo_set, only:[:show, :edit, :update, :destroy, :vote]
   end
 
   def vote
-    pp @photo = Photo.find(params[:id])
-    pp @vote = Vote.find_by_photo_id(@photo.id)
-    if @vote == nil
+    @photo = Photo.find(params[:id])
+    @vote = Vote.where(user_id: current_user.id, photo_id: @photo.id).first
+    if @vote == nil || @vote.like == 0
        @like = 1
        Vote.create(user_id: current_user.id, photo_id: @photo.id, like: @like)
      else
-       @vote.update(like: @vote.like + 1)
+       @vote.update(like: @vote.like - 1)
     end
     redirect_to photos_path
   end
